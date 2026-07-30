@@ -78,6 +78,8 @@ canvas{
     justify-content:space-between;
     align-items:center;
     margin-top:12px;
+    position:relative;
+    z-index:1000;
 }
 
 .left-controls{
@@ -112,4 +114,12 @@ canvas{
     .hud{
         font-size:14px;
     }
+}
+
+#mobileControls,
+#mobileControls button {
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
 }

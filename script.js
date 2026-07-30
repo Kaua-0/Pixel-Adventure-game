@@ -263,35 +263,44 @@ document.addEventListener('keyup', e => {
     }
 });
 
-leftBtn.addEventListener('touchstart', e => {
-    e.preventDefault();
-    keys.left = true;
-});
+// ==============================
+// CONTROLES MOBILE
+// ==============================
 
-leftBtn.addEventListener('touchend', e => {
-    e.preventDefault();
-    keys.left = false;
-});
+function setupMobileButton(button, keyName) {
 
-rightBtn.addEventListener('touchstart', e => {
-    e.preventDefault();
-    keys.right = true;
-});
+    const press = (e) => {
+        e.preventDefault();
+        keys[keyName] = true;
 
-rightBtn.addEventListener('touchend', e => {
-    e.preventDefault();
-    keys.right = false;
-});
+        if (keyName === 'up') {
+            jumpBuffer = JUMP_BUFFER_FRAMES;
+        }
+    };
 
-jumpBtn.addEventListener('touchstart', e => {
-    e.preventDefault();
-    keys.up = true;
-});
+    const release = (e) => {
+        e.preventDefault();
+        keys[keyName] = false;
+    };
 
-jumpBtn.addEventListener('touchend', e => {
-    e.preventDefault();
-    keys.up = false;
-});
+    // Touch
+    button.addEventListener('touchstart', press, { passive: false });
+    button.addEventListener('touchend', release, { passive: false });
+    button.addEventListener('touchcancel', release, { passive: false });
+
+    // Pointer (Android e iPhone)
+    button.addEventListener('pointerdown', press);
+    button.addEventListener('pointerup', release);
+    button.addEventListener('pointercancel', release);
+    button.addEventListener('pointerleave', release);
+
+    // Evita menu de contexto
+    button.addEventListener('contextmenu', e => e.preventDefault());
+}
+
+setupMobileButton(leftBtn, 'left');
+setupMobileButton(rightBtn, 'right');
+setupMobileButton(jumpBtn, 'up');
 
 function updatePlayer() {
 
@@ -952,23 +961,38 @@ function loadLevel(level) {
         flag.x = 3050;
         flag.y = 250;
 
-    } else if (level === 2) {
+} else if (level === 2) {
 
-        flag.x = 3300;
-        flag.y = 220;
+    // posição da bandeira
+    flag.x = 3560;
+    flag.y = groundY - 300;
 
-        // plataformas extras
-        platforms.push(
-            { x: 3150, y: 260, w: 180, h: 30 },
-            { x: 3450, y: 200, w: 200, h: 30 }
-        );
+    // plataformas finais
+    platforms.push(
+        { x: 3150, y: groundY - 120, w: 180, h: 30 },
+        { x: 3320, y: groundY - 180, w: 140, h: 20 }, // plataforma móvel
+        { x: 3480, y: groundY - 170, w: 170, h: 25 }  // plataforma da bandeira
+    );
 
-        // inimigos extras
-        enemies.push(
-            { x: 3200, y: 224, w: 36, h: 36, dir: 1, min: 3150, max: 3350 },
-            { x: 3500, y: 164, w: 36, h: 36, dir: -1, min: 3450, max: 3600 }
-        );
-    }
+    // move a plataforma móvel
+    movingPlatforms[1] = {
+        x: 3320,
+        y: groundY - 180,
+        w: 140,
+        h: 20,
+        startY: groundY - 220,
+        endY: groundY - 120,
+        speed: 1,
+        dir: 1,
+        vertical: true
+    };
+
+    // inimigos
+    enemies.push(
+        { x: 3200, y: groundY - 156, w: 36, h: 36, dir: 1, min: 3150, max: 3330 },
+        { x: 3500, y: groundY - 206, w: 36, h: 36, dir: -1, min: 3460, max: 3600 }
+    );
+}
 
     document.querySelector('.hud div:last-child').textContent =
         `🏁 Fase ${level}`;

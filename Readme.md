@@ -6,9 +6,7 @@ Um jogo de plataforma 2D no estilo retrô desenvolvido para web. O objetivo é n
 
 ## 📸 Screenshots
 
-| Tela Inicial | Gameplay |
-| :---: | :---: |
-| ![Menu Principal](images/menu.png) |
+<img width="1314" height="603" alt="image" src="https://github.com/user-attachments/assets/b44cf1bf-2147-414d-b1ff-f07e6af4f4da" />
 
 ---
 
