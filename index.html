@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Adventure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="game-container">
+
+    <header class="hud">
+        <div>🪙 <span id="coins">0</span></div>
+        <div>❤️ <span id="lives">3</span></div>
+        <div>🏁 Fase 1</div>
+    </header>
+
+    <div class="menu" id="menu">
+        <h1>Pixel Adventure</h1>
+        <p>Corra, pule, colete moedas e alcance a bandeira!</p>
+        <button id="startBtn">▶ Iniciar Jogo</button>
+    </div>
+
+    <canvas id="game"></canvas>
+
+    <div class="mobile-controls" id="mobileControls">
+        <div class="left-controls">
+            <button id="leftBtn">⬅</button>
+            <button id="rightBtn">➡</button>
+        </div>
+        <button id="jumpBtn">⬆</button>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
